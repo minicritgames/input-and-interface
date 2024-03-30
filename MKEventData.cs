@@ -20,4 +20,4 @@ namespace Minikit.InputAndInterface
             specialInputKey = _specialInputKey;
         }
     }
-} // Minicrit.MUI namespace
+} // Minikit.InputAndInterface namespace

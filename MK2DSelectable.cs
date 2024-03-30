@@ -92,4 +92,4 @@ namespace Minikit.InputAndInterface
             selectable.navigation = navigation;
         }
     }
-} // Minicrit.MUI namespace
+} // Minikit.InputAndInterface namespace

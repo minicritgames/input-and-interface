@@ -87,4 +87,4 @@ namespace Minikit.InputAndInterface
             ExecuteEvents.Execute(_selectable.gameObject, uiEventData, _eventFunction);
         }
     }
-} // Minicrit.MUI namespace
+} // Minikit.InputAndInterface namespace

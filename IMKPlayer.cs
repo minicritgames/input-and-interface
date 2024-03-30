@@ -164,4 +164,4 @@ namespace Minikit.InputAndInterface
             return true;
         }
     }
-} // Minicrit.MUI namespace
+} // Minikit.InputAndInterface namespace
