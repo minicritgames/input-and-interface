@@ -44,4 +44,4 @@ namespace Minikit.InputAndInterface
                 || _inputDeviceType == MKInputDevice.MouseAndKeyboard;
         }
     }
-} // Minicrit.MUI namespace
+} // Minikit.InputAndInterface namespace

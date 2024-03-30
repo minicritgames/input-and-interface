@@ -322,4 +322,4 @@ namespace Minikit.InputAndInterface
             return null;
         }
     }
-} // Minicrit.MUI namespace
+} // Minikit.InputAndInterface namespace
