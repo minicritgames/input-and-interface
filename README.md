@@ -1,1 +1,1 @@
-# input-and-interface
+https://www.minicrit.games/minikit/input-and-interface/
