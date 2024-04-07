@@ -89,7 +89,7 @@ namespace Minikit.InputAndInterface
                 eventTrigger.triggers.Add(new EventTrigger.Entry() { eventID = EventTriggerType.Submit });
             }
         }
-#endif
+#endif // UNITY_EDITOR
 
         private void OnEnable()
         {
