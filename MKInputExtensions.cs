@@ -9,6 +9,21 @@ namespace Minikit.InputAndInterface
     {
 
 
+        public static InputDevice GetFirstInputDevice(this MKInputDevice _inputDevice)
+        {
+            foreach (InputDevice inputDevice in InputSystem.devices)
+            {
+                MKInputDevice inputDeviceType = inputDevice.GetInputDeviceType();
+                if (inputDeviceType != MKInputDevice.NONE
+                    && inputDeviceType.HasAnyFlags(_inputDevice))
+                {
+                    return inputDevice;
+                }
+            }
+
+            return null;
+        }
+
         public static MKInputDevice GetInputDeviceType(this InputAction.CallbackContext _context)
         {
             return _context.control.device.GetInputDeviceType();
