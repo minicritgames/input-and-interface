@@ -9,6 +9,11 @@ namespace Minikit.InputAndInterface
     {
 
 
+        public static InputDevice[] GetAllInputDevices()
+        {
+            return InputSystem.devices.ToArray();
+        }
+        
         public static InputDevice[] GetFirstInputDevices(this MKInputDevice _inputDevice)
         {
             List<InputDevice> inputDevices = new();
