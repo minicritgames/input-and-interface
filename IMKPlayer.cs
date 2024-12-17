@@ -14,7 +14,7 @@ namespace Minikit.InputAndInterface
 
         public MKInputDevice GetInputDeviceType();
 
-        /// <summary> Have this function return the result of IMUIPlayer.GetSelectedUI(this) </summary>
+        /// <summary> Have this function return the result of IMKPlayer.GetSelectedUI(this) </summary>
         public MKSelectable GetSelectedUI();
 
         public static MKSelectable GetSelectedUI(IMKPlayer _player)
@@ -22,7 +22,7 @@ namespace Minikit.InputAndInterface
             return _player.selectedUI;
         }
 
-        /// <summary> Have this function return the result of IMUIPlayer.TrySelectUI(this, _selectable) </summary>
+        /// <summary> Have this function return the result of IMKPlayer.TrySelectUI(this, _selectable) </summary>
         public bool TrySelectUI(MKSelectable _selectable);
 
         public static bool TrySelectUI(IMKPlayer _player, MKSelectable _selectable)
@@ -70,7 +70,7 @@ namespace Minikit.InputAndInterface
             return true;
         }
 
-        /// <summary> Have this function return the result of IMUIPlayer.TryDeselectUI(this) </summary>
+        /// <summary> Have this function return the result of IMKPlayer.TryDeselectUI(this) </summary>
         public bool TryDeselectUI();
 
         public static bool TryDeselectUI(IMKPlayer _player)
@@ -100,7 +100,7 @@ namespace Minikit.InputAndInterface
             return true;
         }
 
-        /// <summary> Have this function return the result of IMUIPlayer.TryNavigateUIByDirection(this, _direction) </summary>
+        /// <summary> Have this function return the result of IMKPlayer.TryNavigateUIByDirection(this, _direction) </summary>
         public bool TryNavigateUIByDirection(Vector2 _direction);
 
         public static bool TryNavigateUIByDirection(IMKPlayer _player, Vector2 _direction)
@@ -119,7 +119,7 @@ namespace Minikit.InputAndInterface
             return false;
         }
 
-        /// <summary> Have this function return the result of IMUIPlayer.TryNavigateUIByDirection(this, _direction) </summary>
+        /// <summary> Have this function return the result of IMKPlayer.TryNavigateUIByDirection(this, _direction) </summary>
         public bool TryNavigateUIByDirection(MKInputDirection _direction);
 
         public static bool TryNavigateUIByDirection(IMKPlayer _player, MKInputDirection _direction)
@@ -138,7 +138,7 @@ namespace Minikit.InputAndInterface
             return false;
         }
 
-        /// <summary> Have this function return the result of IMUIPlayer.TrySubmitUI(this, _selectable) </summary>
+        /// <summary> Have this function return the result of IMKPlayer.TrySubmitUI(this, _selectable) </summary>
         public bool TrySubmitUI(MKSelectable _selectable);
 
         public static bool TrySubmitUI(IMKPlayer _player, MKSelectable _selectable)
