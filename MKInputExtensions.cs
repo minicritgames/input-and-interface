@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -53,7 +52,7 @@ namespace Minikit.InputAndInterface
                 case null:
                     Debug.LogWarning($"Unknown input device displayName: {_inputDevice.name}");
                     return MKInputDevice.NONE;
-                // We can't possibly know all of the names of the various gamepads, so we will treat the default non-null device as a Gamepad to be safe
+                // We can't possibly know all the names of the various gamepads, so we will treat the default non-null device as a Gamepad to be safe
                 default:
                     return MKInputDevice.Gamepad;
             }

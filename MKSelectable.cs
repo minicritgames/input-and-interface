@@ -1,12 +1,9 @@
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using System;
 
 namespace Minikit.InputAndInterface
 {
