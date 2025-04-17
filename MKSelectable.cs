@@ -245,6 +245,14 @@ namespace Minikit.InputAndInterface
             }
         }
 
+        public void RemovePlayerFromSelected(IMKPlayer _player)
+        {
+            if (selectedByPlayers.RemoveAll((p) => p == _player) > 0)
+            { 
+                MKEventSystem.instance.ExecuteUIEvent(_player, this, ExecuteEvents.deselectHandler);
+            }
+        }
+
         public void AddSubmitListener(UnityAction<BaseEventData> _func)
         {
             // NOTE: If you get a null reference on eventTrigger here, it may be because you are calling this function inside of an Awake event
