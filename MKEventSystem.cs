@@ -29,14 +29,14 @@ namespace Minikit.InputAndInterface
         {
             if (instance != null)
             {
-                MonoBehaviour.Destroy(this.gameObject);
+                Destroy(gameObject);
                 return;
             }
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
 
-        void Update()
+        private void Update()
         {
             if (eventSystem.currentSelectedGameObject != null)
             {

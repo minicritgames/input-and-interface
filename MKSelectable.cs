@@ -255,7 +255,7 @@ namespace Minikit.InputAndInterface
 
         public void AddSubmitListener(UnityAction<BaseEventData> _func)
         {
-            // NOTE: If you get a null reference on eventTrigger here, it may be because you are calling this function inside of an Awake event
+            // NOTE: If you get a null reference on eventTrigger here, it may be because you are calling this function inside an Awake event
             // which could possibly be firing before this component's Awake event, which is what assigns eventTrigger
 
             EventTrigger.Entry submitEventTrigger = eventTrigger.triggers.FirstOrDefault(e => e.eventID == EventTriggerType.Submit);
