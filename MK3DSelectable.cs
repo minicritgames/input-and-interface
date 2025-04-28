@@ -6,8 +6,8 @@ namespace Minikit.InputAndInterface
     public class MK3DSelectable : MKSelectable
     {
         public Dictionary<MKInputDirection, MKSelectable> explicitNavigateSelectables = new(); // Eventually we should find a better solution for 3D selectables
-
-
+        
+        
         public override MKSelectable FindUI(Vector3 _direction)
         {
             return FindUI(VectorToInputDirection(_direction));

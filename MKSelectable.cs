@@ -30,15 +30,10 @@ namespace Minikit.InputAndInterface
         private static List<MKSelectable> firstSelections = new();
 
 
-        private void Awake()
-        {
-            AwakeInternal();
-        }
-
-        protected virtual void AwakeInternal()
+        protected virtual void Awake()
         {
             eventTrigger = GetComponent<EventTrigger>();
-
+            
             // Hook up to the hover events (this works for 2D and 3D selectables, so long as the Camera used has a PhysicsRaycaster component)
             EventTrigger.Entry pointerEnterEventTrigger = eventTrigger.triggers.FirstOrDefault(e => e.eventID == EventTriggerType.PointerEnter);
             if (pointerEnterEventTrigger == null)
@@ -58,12 +53,7 @@ namespace Minikit.InputAndInterface
         }
 
 #if UNITY_EDITOR
-        private void OnValidate()
-        {
-            OnValidateInternal();
-        }
-
-        protected virtual void OnValidateInternal()
+        protected virtual void OnValidate()
         {
             // Clear all OnClick listeners, we do not want to use that event when we're using this UI system
             Button button = GetComponent<Button>();
@@ -78,22 +68,10 @@ namespace Minikit.InputAndInterface
             {
                 eventTrigger = gameObject.AddComponent<EventTrigger>();
             }
-
-            // Make an empty "Submit" trigger if there isn't one already
-            if (eventTrigger.triggers.Count == 0
-                || eventTrigger.triggers.FirstOrDefault(e => e.eventID == EventTriggerType.Submit) == null)
-            {
-                eventTrigger.triggers.Add(new EventTrigger.Entry() { eventID = EventTriggerType.Submit });
-            }
         }
 #endif // UNITY_EDITOR
 
-        private void OnEnable()
-        {
-            OnEnableInternal();
-        }
-
-        protected virtual void OnEnableInternal()
+        protected virtual void OnEnable()
         {
             if (allowAsFirstSelection)
             {
@@ -101,14 +79,9 @@ namespace Minikit.InputAndInterface
             }
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
-            OnDisableInternal();
-        }
-
-        protected virtual void OnDisableInternal()
-        {
-            hovered = false;
+            SetHovered(false);
 
             if (allowAsFirstSelection
                 && firstSelections.Contains(this))
@@ -117,16 +90,10 @@ namespace Minikit.InputAndInterface
             }
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
-            OnDestroyInternal();
         }
-
-        protected virtual void OnDestroyInternal()
-        {
-
-        }
-
+        
 
         public abstract MKSelectable FindUI(Vector3 _direction);
 
@@ -146,39 +113,48 @@ namespace Minikit.InputAndInterface
         {
             return canInteractRuleset.Check(_player);
         }
-
+        
         private void OnHovered(BaseEventData _baseEventData)
         {
-            hovered = true;
+            SetHovered(true);
+        }
 
-            // Since we can't tell which player sent the PointerEnter event, we have to just set all players selectUI to this as long as they have a mouse device
-            if (IMKPlayerManager.instance != null)
+        private void OnUnhovered(BaseEventData _baseEventData)
+        {
+            SetHovered(false);
+        }
+        
+        protected void SetHovered(bool _hovered)
+        {
+            if (hovered == _hovered)
             {
-                foreach (IMKPlayer _player in IMKPlayerManager.instance.GetPlayers())
+                return;
+            }
+            
+            hovered = _hovered;
+            
+            if (hovered)
+            {
+                // Since we can't tell which player sent the PointerEnter event, we have to just set all players selectUI to this as long as they have a mouse device
+                if (IMKPlayerManager.instance != null)
                 {
-                    if (_player.GetInputDeviceType().UsesCursor())
+                    foreach (IMKPlayer _player in IMKPlayerManager.instance.GetPlayers())
                     {
-                        _player.TrySelectUI(this);
+                        if (_player.GetInputDeviceType().UsesCursor())
+                        {
+                            _player.TrySelectUI(this);
+                        }
                     }
                 }
             }
         }
 
-        private void OnUnhovered(BaseEventData _baseEventData)
-        {
-            hovered = false;
-
-            // Setting pressingPlayer.selectedUI to null is handled in the UIEventSystem instead
-        }
-
         protected virtual void OnSelected(BaseEventData _baseEventData)
         {
-
         }
 
         protected virtual void OnDeselected(BaseEventData _baseEventData)
         {
-
         }
 
         public void AddSelectedListener(UnityAction<BaseEventData> _func)
@@ -198,19 +174,13 @@ namespace Minikit.InputAndInterface
         public void RemoveSelectedListener(UnityAction<BaseEventData> _func)
         {
             EventTrigger.Entry selectedEventTrigger = eventTrigger.triggers.FirstOrDefault(e => e.eventID == EventTriggerType.Select);
-            if (selectedEventTrigger != null)
-            {
-                selectedEventTrigger.callback.RemoveListener(_func);
-            }
+            selectedEventTrigger?.callback.RemoveListener(_func);
         }
 
         public void RemoveAllSelectedListeners()
         {
             EventTrigger.Entry selectedEventTrigger = eventTrigger.triggers.FirstOrDefault(e => e.eventID == EventTriggerType.Select);
-            if (selectedEventTrigger != null)
-            {
-                selectedEventTrigger.callback.RemoveAllListeners();
-            }
+            selectedEventTrigger?.callback.RemoveAllListeners();
         }
 
         public void AddDeselectedListener(UnityAction<BaseEventData> _func)
@@ -230,19 +200,13 @@ namespace Minikit.InputAndInterface
         public void RemoveDeselectedListener(UnityAction<BaseEventData> _func)
         {
             EventTrigger.Entry deselectedEventTrigger = eventTrigger.triggers.FirstOrDefault(e => e.eventID == EventTriggerType.Deselect);
-            if (deselectedEventTrigger != null)
-            {
-                deselectedEventTrigger.callback.RemoveListener(_func);
-            }
+            deselectedEventTrigger?.callback.RemoveListener(_func);
         }
 
         public void RemoveAllDeselectedListeners()
         {
             EventTrigger.Entry deselectedEventTrigger = eventTrigger.triggers.FirstOrDefault(e => e.eventID == EventTriggerType.Deselect);
-            if (deselectedEventTrigger != null)
-            {
-                deselectedEventTrigger.callback.RemoveAllListeners();
-            }
+            deselectedEventTrigger?.callback.RemoveAllListeners();
         }
 
         public void RemovePlayerFromSelected(IMKPlayer _player)
@@ -270,19 +234,13 @@ namespace Minikit.InputAndInterface
         public void RemoveSubmitListener(UnityAction<BaseEventData> _func)
         {
             EventTrigger.Entry submitEventTrigger = eventTrigger.triggers.FirstOrDefault(e => e.eventID == EventTriggerType.Submit);
-            if (submitEventTrigger != null)
-            {
-                submitEventTrigger.callback.RemoveListener(_func);
-            }
+            submitEventTrigger?.callback.RemoveListener(_func);
         }
 
         public void RemoveAllSubmitListeners()
         {
             EventTrigger.Entry submitEventTrigger = eventTrigger.triggers.FirstOrDefault(e => e.eventID == EventTriggerType.Submit);
-            if (submitEventTrigger != null)
-            {
-                submitEventTrigger.callback.RemoveAllListeners();
-            }
+            submitEventTrigger?.callback.RemoveAllListeners();
         }
 
         protected MKInputDirection VectorToInputDirection(Vector2 _direction)

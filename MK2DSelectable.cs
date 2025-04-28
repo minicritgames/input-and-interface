@@ -9,18 +9,18 @@ namespace Minikit.InputAndInterface
         public Selectable selectable { get; private set; }
 
 
-        protected override void AwakeInternal()
+        protected override void Awake()
         {
+            base.Awake();
+            
             selectable = GetComponent<Selectable>();
 
             // Set the navigation mode to always be explicit
             Navigation navigation = selectable.navigation;
             navigation.mode = Navigation.Mode.Explicit;
             selectable.navigation = navigation;
-
-            base.AwakeInternal();
         }
-
+        
 
         public override MKSelectable FindUI(Vector3 _direction)
         {
