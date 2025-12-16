@@ -25,7 +25,7 @@ namespace Minikit.InputAndInterface
 
         public static bool TrySelectUI(IMKPlayer _player, MKSelectable _selectable)
         {
-            if (_selectable == null)
+            if (!_selectable)
             {
                 return false;
             }
@@ -41,14 +41,14 @@ namespace Minikit.InputAndInterface
                 return false;
             }
 
-            if (_player.selectedUI != null
+            if (_player.selectedUI
                 && !_player.selectedUI.CanPlayerDeselect(_player))
             {
                 return false;
             }
 
             // Deselect previous selection
-            if (_player.selectedUI != null
+            if (_player.selectedUI
                 && _player.selectedUI.selectedByPlayers.Contains(_player))
             {
                 _player.selectedUI.selectedByPlayers.RemoveAll(p => p == _player);
@@ -73,7 +73,7 @@ namespace Minikit.InputAndInterface
 
         public static bool TryDeselectUI(IMKPlayer _player)
         {
-            if (_player.selectedUI == null)
+            if (!_player.selectedUI)
             {
                 return true;
             }
@@ -141,7 +141,7 @@ namespace Minikit.InputAndInterface
 
         public static bool TrySubmitUI(IMKPlayer _player, MKSelectable _selectable)
         {
-            if (_player.selectedUI == null)
+            if (!_player.selectedUI)
             {
                 return false;
             }
